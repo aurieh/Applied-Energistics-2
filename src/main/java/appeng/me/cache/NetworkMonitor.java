@@ -32,7 +32,9 @@ import appeng.api.storage.channels.IFluidStorageChannel;
 import appeng.api.storage.channels.IItemStorageChannel;
 import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
+import appeng.core.AELog;
 import appeng.me.storage.ItemWatcher;
+import appeng.tile.networking.TileController;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
@@ -184,8 +186,9 @@ public class NetworkMonitor<T extends IAEStack<T>> implements IMEMonitor<T> {
                 this.cachedList.add(changedItem);
             } else {
                 T i = this.cachedList.findPrecise(changedItem);
-                if (i != null)
+                if (i != null) {
                     i.setCraftable(false);
+                }
             }
         }
     }
@@ -241,7 +244,29 @@ public class NetworkMonitor<T extends IAEStack<T>> implements IMEMonitor<T> {
             src2MonitorsMap.get(src).forEach(networkMonitor -> {
                 if (networkMonitor.isNested != networkMonitor.wasNested) {
                     networkMonitor.wasNested = networkMonitor.isNested;
-                    networkMonitor.setForceUpdate(true);
+//                    var changeOnNetIterator = this.myGridCache.getGrid().getMachines(TileController.class).iterator();
+//                    TileController changeOnNetController = null;
+//                    while (changeOnNetIterator.hasNext()) {
+//                        changeOnNetController = (TileController) changeOnNetIterator.next().getMachine();
+//                        if (changeOnNetController.hasCustomInventoryName()) break;
+//                    }
+//
+//
+//                    var iterator = networkMonitor.myGridCache.getGrid().getMachines(TileController.class).iterator();
+//                    TileController controller = null;
+//                    while (iterator.hasNext()) {
+//                        controller = (TileController) iterator.next().getMachine();
+//                        if (controller.hasCustomInventoryName()) break;
+//                    }
+//
+//
+//                    String from = changeOnNetController != null ? changeOnNetController.getCustomInventoryName() + "(" + changeOnNetController.getLocation().toString() + ")" : "subnet";
+//                    String to = controller != null ? controller.getCustomInventoryName() + "(" + controller.getLocation().toString() + ")" : "subnet" + "(" + networkMonitor.myGridCache.getGrid().getPivot().getGridBlock().getLocation() + ")";
+//
+//
+//                    AELog.error((networkMonitor.isNested ? "  NESTING: " : "UNNESTING: ") + to + "; CHANGE ON NET " + from);
+//
+//                    networkMonitor.setForceUpdate(true);
                 }
             });
             src2MonitorsMap.remove(src);
