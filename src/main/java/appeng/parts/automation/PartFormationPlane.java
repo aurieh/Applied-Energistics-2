@@ -42,8 +42,7 @@ import appeng.me.storage.MEInventoryHandler;
 import appeng.tile.inventory.AppEngInternalAEInventory;
 import appeng.util.Platform;
 import appeng.util.inv.InvOperation;
-import appeng.util.prioritylist.FuzzyPriorityList;
-import appeng.util.prioritylist.PrecisePriorityList;
+import appeng.util.prioritylist.PartitionLists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -105,12 +104,11 @@ public class PartFormationPlane extends PartAbstractFormationPlane<IAEItemStack>
             }
         }
 
-        if (this.getInstalledUpgrades(Upgrades.FUZZY) > 0) {
-            this.myHandler.setPartitionList(
-                    new FuzzyPriorityList<IAEItemStack>(priorityList, (FuzzyMode) this.getConfigManager().getSetting(Settings.FUZZY_MODE)));
-        } else {
-            this.myHandler.setPartitionList(new PrecisePriorityList<IAEItemStack>(priorityList));
-        }
+        this.myHandler.setPartitionList(PartitionLists.partitionListOf(
+                priorityList,
+                this.getInstalledUpgrades(Upgrades.FUZZY) > 0,
+                (FuzzyMode) this.getConfigManager().getSetting(Settings.FUZZY_MODE)
+        ));
 
         try {
             this.getProxy().getGrid().postEvent(new MENetworkCellArrayUpdate());

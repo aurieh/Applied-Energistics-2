@@ -63,9 +63,7 @@ import appeng.parts.automation.PartUpgradeable;
 import appeng.tile.networking.TileCableBus;
 import appeng.util.ConfigManager;
 import appeng.util.Platform;
-import appeng.util.inv.InvOperation;
-import appeng.util.prioritylist.FuzzyPriorityList;
-import appeng.util.prioritylist.PrecisePriorityList;
+import appeng.util.prioritylist.PartitionLists;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -76,7 +74,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -447,11 +444,11 @@ public class PartFluidStorageBus extends PartUpgradeable implements IGridTickabl
                     this.handler.setSticky(true);
                 }
 
-                if (this.getInstalledUpgrades(Upgrades.FUZZY) > 0) {
-                    this.handler.setPartitionList(new FuzzyPriorityList<IAEFluidStack>(priorityList, (FuzzyMode) this.getConfigManager().getSetting(Settings.FUZZY_MODE)));
-                } else {
-                    this.handler.setPartitionList(new PrecisePriorityList<IAEFluidStack>(priorityList));
-                }
+                this.handler.setPartitionList(PartitionLists.partitionListOf(
+                        priorityList,
+                        this.getInstalledUpgrades(Upgrades.FUZZY) > 0,
+                        (FuzzyMode) this.getConfigManager().getSetting(Settings.FUZZY_MODE)
+                ));
 
                 if (inv instanceof IBaseMonitor) {
                     if (((AccessRestriction) ((ConfigManager) this.getConfigManager()).getSetting(Settings.ACCESS)).hasPermission(AccessRestriction.READ)) {

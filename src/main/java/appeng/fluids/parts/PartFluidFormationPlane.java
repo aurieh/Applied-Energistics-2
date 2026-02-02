@@ -2,10 +2,7 @@ package appeng.fluids.parts;
 
 
 import appeng.api.AEApi;
-import appeng.api.config.AccessRestriction;
-import appeng.api.config.Actionable;
-import appeng.api.config.IncludeExclude;
-import appeng.api.config.Upgrades;
+import appeng.api.config.*;
 import appeng.api.networking.events.MENetworkCellArrayUpdate;
 import appeng.api.networking.events.MENetworkChannelsChanged;
 import appeng.api.networking.events.MENetworkEventSubscribe;
@@ -29,8 +26,7 @@ import appeng.me.storage.MEInventoryHandler;
 import appeng.parts.automation.PartAbstractFormationPlane;
 import appeng.parts.automation.PlaneModels;
 import appeng.util.Platform;
-import appeng.util.inv.InvOperation;
-import appeng.util.prioritylist.PrecisePriorityList;
+import appeng.util.prioritylist.PartitionLists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -83,7 +79,7 @@ public class PartFluidFormationPlane extends PartAbstractFormationPlane<IAEFluid
                 priorityList.add(is);
             }
         }
-        this.myHandler.setPartitionList(new PrecisePriorityList<IAEFluidStack>(priorityList));
+        this.myHandler.setPartitionList(PartitionLists.partitionListOf(priorityList, false, FuzzyMode.IGNORE_ALL));
 
         try {
             this.getProxy().getGrid().postEvent(new MENetworkCellArrayUpdate());

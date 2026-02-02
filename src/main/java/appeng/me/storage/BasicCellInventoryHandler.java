@@ -31,6 +31,7 @@ import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
 import appeng.util.Platform;
 import appeng.util.prioritylist.FuzzyPriorityList;
+import appeng.util.prioritylist.PartitionLists;
 import appeng.util.prioritylist.PrecisePriorityList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -95,13 +96,11 @@ public class BasicCellInventoryHandler<T extends IAEStack<T>> extends MEInventor
                 setSticky(true);
             }
 
-            if (!priorityList.isEmpty()) {
-                if (hasFuzzy) {
-                    this.setPartitionList(new FuzzyPriorityList<>(priorityList, fzMode));
-                } else {
-                    this.setPartitionList(new PrecisePriorityList<>(priorityList));
-                }
-            }
+            this.setPartitionList(PartitionLists.partitionListOf(
+                    priorityList,
+                    hasFuzzy,
+                    fzMode
+            ));
         }
     }
 

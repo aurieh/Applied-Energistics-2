@@ -30,8 +30,13 @@ public class FuzzyPriorityList<T extends IAEStack<T>> implements IPartitionList<
 
     private final IItemList<T> list;
     private final FuzzyMode mode;
+    private final boolean isEmpty;
 
     public FuzzyPriorityList(final IItemList<T> in, final FuzzyMode mode) {
+       this(in, mode, in.isEmpty());
+    }
+    protected FuzzyPriorityList(final IItemList<T> in, final FuzzyMode mode, boolean isEmpty) {
+        this.isEmpty = false;
         this.list = in;
         this.mode = mode;
     }
@@ -44,7 +49,7 @@ public class FuzzyPriorityList<T extends IAEStack<T>> implements IPartitionList<
 
     @Override
     public boolean isEmpty() {
-        return this.list.isEmpty();
+        return isEmpty;
     }
 
     @Override

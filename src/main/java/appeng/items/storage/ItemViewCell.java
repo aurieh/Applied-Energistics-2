@@ -32,10 +32,7 @@ import appeng.items.contents.CellConfig;
 import appeng.items.contents.CellUpgrades;
 import appeng.util.Platform;
 import appeng.util.item.AEItemStack;
-import appeng.util.prioritylist.FuzzyPriorityList;
-import appeng.util.prioritylist.IPartitionList;
-import appeng.util.prioritylist.MergedPriorityList;
-import appeng.util.prioritylist.PrecisePriorityList;
+import appeng.util.prioritylist.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
@@ -92,15 +89,19 @@ public class ItemViewCell extends AEBaseItem implements ICellWorkbenchItem {
                 }
 
                 if (!priorityList.isEmpty()) {
-                    if (hasFuzzy) {
-                        myMergedList.addNewList(new FuzzyPriorityList<>(priorityList, fzMode), !hasInverter);
-                    } else {
-                        myMergedList.addNewList(new PrecisePriorityList<>(priorityList), !hasInverter);
-                    }
-
-                    myPartitionList = myMergedList;
+                    myMergedList.addNewList(
+                            PartitionLists.partitionListOf(
+                                    priorityList,
+                                    hasFuzzy,
+                                    fzMode
+                            ),
+                            !hasInverter
+                    );
                 }
             }
+        }
+        if (!myMergedList.isEmpty()) {
+            myPartitionList = myMergedList;
         }
 
         return myPartitionList;

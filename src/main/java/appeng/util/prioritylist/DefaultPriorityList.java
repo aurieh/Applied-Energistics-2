@@ -26,6 +26,9 @@ import java.util.Collections;
 
 public class DefaultPriorityList<T extends IAEStack<T>> implements IPartitionList<T> {
 
+    // Only accessed through PartitionLists
+    protected DefaultPriorityList() {}
+
     @Override
     public boolean isListed(final T input) {
         return false;

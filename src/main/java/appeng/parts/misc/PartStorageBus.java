@@ -62,8 +62,7 @@ import appeng.tile.networking.TileCableBus;
 import appeng.util.ConfigManager;
 import appeng.util.Platform;
 import appeng.util.inv.InvOperation;
-import appeng.util.prioritylist.FuzzyPriorityList;
-import appeng.util.prioritylist.PrecisePriorityList;
+import appeng.util.prioritylist.PartitionLists;
 import com.jaquadro.minecraft.storagedrawers.api.capabilities.IItemRepository;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -476,11 +475,11 @@ public class PartStorageBus extends PartUpgradeable implements IGridTickable, IC
                     this.handler.setSticky(true);
                 }
 
-                if (this.getInstalledUpgrades(Upgrades.FUZZY) > 0) {
-                    this.handler.setPartitionList(new FuzzyPriorityList<>(priorityList, (FuzzyMode) this.getConfigManager().getSetting(Settings.FUZZY_MODE)));
-                } else {
-                    this.handler.setPartitionList(new PrecisePriorityList<>(priorityList));
-                }
+                this.handler.setPartitionList(PartitionLists.partitionListOf(
+                        priorityList,
+                        this.getInstalledUpgrades(Upgrades.FUZZY) > 0,
+                        (FuzzyMode) this.getConfigManager().getSetting(Settings.FUZZY_MODE)
+                ));
 
                 if (inv instanceof IBaseMonitor) {
                     if (((AccessRestriction) ((ConfigManager) this.getConfigManager()).getSetting(Settings.ACCESS)).hasPermission(AccessRestriction.READ)) {

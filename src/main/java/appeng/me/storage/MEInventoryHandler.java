@@ -29,8 +29,8 @@ import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.IStorageChannel;
 import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
-import appeng.util.prioritylist.DefaultPriorityList;
 import appeng.util.prioritylist.IPartitionList;
+import appeng.util.prioritylist.PartitionLists;
 
 
 public class MEInventoryHandler<T extends IAEStack<T>> implements IMEInventoryHandler<T> {
@@ -67,7 +67,7 @@ public class MEInventoryHandler<T extends IAEStack<T>> implements IMEInventoryHa
         this.myPriority = 0;
         this.myWhitelist = IncludeExclude.WHITELIST;
         this.setBaseAccess(AccessRestriction.READ_WRITE);
-        this.myPartitionList = new DefaultPriorityList<>();
+        this.myPartitionList = PartitionLists.empty();
     }
 
     IncludeExclude getWhitelist() {

@@ -26,9 +26,14 @@ import appeng.api.storage.data.IItemList;
 public class PrecisePriorityList<T extends IAEStack<T>> implements IPartitionList<T> {
 
     private final IItemList<T> list;
+    private final boolean isEmpty;
 
     public PrecisePriorityList(final IItemList<T> in) {
+        this(in, in.isEmpty());
+    }
+    protected PrecisePriorityList(final IItemList<T> in, boolean isEmpty) {
         this.list = in;
+        this.isEmpty = isEmpty;
     }
 
     @Override
@@ -38,7 +43,7 @@ public class PrecisePriorityList<T extends IAEStack<T>> implements IPartitionLis
 
     @Override
     public boolean isEmpty() {
-        return this.list.isEmpty();
+        return isEmpty;
     }
 
     @Override
