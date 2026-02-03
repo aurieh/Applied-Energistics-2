@@ -134,8 +134,9 @@ public class AEGuiHandler implements IAdvancedGuiHandler<AEBaseGui>, IGhostIngre
                 for (Target<I> target : targets) {
                     Target<I> targetToFind = target;
 
-                    if (target instanceof HeiProxyTarget<I> heiTarget) {
-                        targetToFind = heiTarget.original();
+                    if (target instanceof HeiProxyTarget<?> heiTarget) {
+                        //noinspection unchecked
+                        targetToFind = (Target<I>)heiTarget.original();
                     }
 
                     if (jeiGui.getFakeSlotTargetMap().get(targetToFind) instanceof IJEITargetSlot jeiSlot) {
