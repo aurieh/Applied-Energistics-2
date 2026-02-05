@@ -39,12 +39,14 @@ import appeng.parts.automation.PartExportBus;
 import appeng.parts.automation.PartImportBus;
 import appeng.util.item.AEItemStack;
 import mezz.jei.api.gui.IGhostIngredientHandler.Target;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.IFluidBlock;
 import org.lwjgl.input.Mouse;
 
 import javax.annotation.Nonnull;
@@ -208,6 +210,13 @@ public class GuiUpgradeable extends AEBaseGui implements IJEIGhostIngredients {
         if (ingredient instanceof ItemStack) {
             itemStack = (ItemStack) ingredient;
             fluidStack = FluidUtil.getFluidContained(itemStack);
+            if (fluidStack == null) {
+                Block itemBlock = Block.getBlockFromItem(itemStack.getItem());
+                if (itemBlock instanceof IFluidBlock fluidBlock) {
+                    fluidStack = new FluidStack(fluidBlock.getFluid(), 1000);
+                    itemStack = ItemStack.EMPTY;
+                }
+            }
         } else if (ingredient instanceof FluidStack) {
             fluidStack = (FluidStack) ingredient;
         }
