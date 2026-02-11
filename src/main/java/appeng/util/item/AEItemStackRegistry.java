@@ -32,6 +32,8 @@ import java.util.WeakHashMap;
 public final class AEItemStackRegistry {
     private static final WeakHashMap<AESharedItemStack, WeakReference<AESharedItemStack>> REGISTRY = new WeakHashMap<>();
 
+    private static final AESharedItemStack reusableStack = new AESharedItemStack(ItemStack.EMPTY);
+
     private AEItemStackRegistry() {
     }
 
@@ -43,8 +45,8 @@ public final class AEItemStackRegistry {
         int oldStackSize = itemStack.getCount();
         itemStack.setCount(1);
 
-        AESharedItemStack search = new AESharedItemStack(itemStack);
-        WeakReference<AESharedItemStack> weak = REGISTRY.get(search);
+        reusableStack.setItemStack(itemStack);
+        WeakReference<AESharedItemStack> weak = REGISTRY.get(reusableStack);
         AESharedItemStack ret = null;
 
         if (weak != null) {

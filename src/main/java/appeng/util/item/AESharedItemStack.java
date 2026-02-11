@@ -26,9 +26,9 @@ import java.util.Objects;
 
 final class AESharedItemStack {
 
-    private final ItemStack itemStack;
-    private final int itemDamage;
-    private final int hashCode;
+    private ItemStack itemStack;
+    private int itemDamage;
+    private int hashCode;
 
     public AESharedItemStack(final ItemStack itemStack) {
         this(itemStack, itemStack.getItemDamage());
@@ -45,6 +45,13 @@ final class AESharedItemStack {
         this.itemDamage = damage;
 
         // Ensure this is always called last.
+        this.hashCode = this.makeHashCode();
+    }
+
+    protected void setItemStack(ItemStack itemStack) {
+        this.itemStack = itemStack;
+        this.itemDamage = itemStack.getItemDamage();
+
         this.hashCode = this.makeHashCode();
     }
 
