@@ -223,6 +223,10 @@ public class PartStorageBus extends PartUpgradeable implements IGridTickable, IC
         if (this.getProxy().isActive()) {
             var filteredChanges = this.filterChanges(change);
 
+            if (filteredChanges == null) {
+                return;
+            }
+
             AccessRestriction currentAccess = (AccessRestriction) ((ConfigManager) this.getConfigManager()).getSetting(Settings.ACCESS);
             if (readOncePass) {
                 readOncePass = false;
@@ -592,7 +596,7 @@ public class PartStorageBus extends PartUpgradeable implements IGridTickable, IC
                 }
             }
 
-            return filteredList;
+            return filteredList.isEmpty() ? null : filteredList;
         }
         return change;
     }
