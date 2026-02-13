@@ -179,8 +179,11 @@ public class GridStorageCache implements IStorageGrid {
         return tracker;
     }
 
-    @MENetworkEventSubscribe
-    public void cellUpdate(final MENetworkCellArrayUpdate ev) {
+    /**
+     * If the caller can post the correct item changes via postChangesToNetwork to respect how their cells just changed,
+     * they can call this instead of
+     */
+    public void responsibleCellUpdate() {
         if (localDepth > 0) {
             return;
         }
@@ -209,6 +212,11 @@ public class GridStorageCache implements IStorageGrid {
         }
         tracker.applyChanges();
         localDepth--;
+    }
+
+    @MENetworkEventSubscribe
+    public void cellUpdate(final MENetworkCellArrayUpdate ev) {
+        responsibleCellUpdate();
         this.storageMonitors.forEach((channel, monitor) -> monitor.setForceUpdate(true));
     }
 

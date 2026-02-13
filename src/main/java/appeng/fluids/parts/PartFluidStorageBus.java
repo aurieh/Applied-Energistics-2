@@ -491,7 +491,7 @@ public class PartFluidStorageBus extends PartUpgradeable implements IGridTickabl
 
         try {
             // force grid to update handlers...
-            ((GridStorageCache) this.getProxy().getGrid().getCache(IStorageGrid.class)).cellUpdate(null);
+            ((GridStorageCache) this.getProxy().getGrid().getCache(IStorageGrid.class)).responsibleCellUpdate();
         } catch (final GridAccessException e) {
             // :3
         }
