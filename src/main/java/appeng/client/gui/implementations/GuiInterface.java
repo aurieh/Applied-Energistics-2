@@ -46,6 +46,7 @@ public class GuiInterface extends GuiUpgradeable {
     private GuiImgButton UnlockMode;
     private GuiImgButton BlockMode;
     private GuiToggleButton interfaceMode;
+    private GuiToggleButton interfaceConfigurationMode;
     private GuiImgLabel lockReason;
 
     public GuiInterface(final InventoryPlayer inventoryPlayer, final IInterfaceHost te) {
@@ -71,7 +72,10 @@ public class GuiInterface extends GuiUpgradeable {
         this.buttonList.add(this.UnlockMode);
 
         this.interfaceMode = new GuiToggleButton(this.guiLeft - 18, this.guiTop + 44, 84, 85, GuiText.InterfaceTerminal.getLocal(), GuiText.InterfaceTerminalHint.getLocal());
+        // TODO: proper strings.
+        this.interfaceConfigurationMode = new GuiToggleButton(this.guiLeft - 18, this.guiTop + 62, 84, 85, GuiText.InterfaceConfigurationTerminal.getLocal(), GuiText.InterfaceConfigurationTerminalHint.getLocal());
         this.buttonList.add(this.interfaceMode);
+        this.buttonList.add(this.interfaceConfigurationMode);
     }
 
     protected void addLabel() {
@@ -106,6 +110,10 @@ public class GuiInterface extends GuiUpgradeable {
             this.interfaceMode.setState(((ContainerInterface) this.cvb).getInterfaceTerminalMode() == YesNo.YES);
         }
 
+        if (this.interfaceConfigurationMode != null) {
+            this.interfaceConfigurationMode.setState(((ContainerInterface) this.cvb).getInterfaceConfigurationTerminalMode() == YesNo.YES);
+        }
+
         this.fontRenderer.drawString(this.getGuiDisplayName(GuiText.Interface.getLocal()), 8, 6, 4210752);
 
         this.fontRenderer.drawString(GuiText.Config.getLocal(), 8, 6 + 11 + 7, 4210752);
@@ -136,6 +144,10 @@ public class GuiInterface extends GuiUpgradeable {
 
         if (btn == this.interfaceMode) {
             NetworkHandler.instance().sendToServer(new PacketConfigButton(Settings.INTERFACE_TERMINAL, backwards));
+        }
+
+        if (btn == this.interfaceConfigurationMode) {
+            NetworkHandler.instance().sendToServer(new PacketConfigButton(Settings.INTERFACE_CONFIGURATION_TERMINAL, backwards));
         }
 
         if (btn == this.BlockMode) {

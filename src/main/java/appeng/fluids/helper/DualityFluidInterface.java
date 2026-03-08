@@ -129,6 +129,7 @@ public class DualityFluidInterface implements IGridTickable, IStorageMonitorable
 
         this.upgrades = new StackUpgradeInventory(this.gridProxy.getMachineRepresentation(), this, 2);
         this.cm.registerSetting(Settings.INTERFACE_TERMINAL, YesNo.YES);
+        this.cm.registerSetting(Settings.INTERFACE_CONFIGURATION_TERMINAL, YesNo.YES);
 
         this.iHost = ih;
 

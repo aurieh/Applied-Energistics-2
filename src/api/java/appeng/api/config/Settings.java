@@ -77,6 +77,8 @@ public enum Settings
 
 	INTERFACE_TERMINAL( EnumSet.of( YesNo.YES, YesNo.NO ) ),
 
+	INTERFACE_CONFIGURATION_TERMINAL( EnumSet.of(YesNo.YES, YesNo.NO) ),
+
 	CRAFT_VIA_REDSTONE( EnumSet.of( YesNo.YES, YesNo.NO ) ),
 
 	STORAGE_FILTER( EnumSet.allOf( StorageFilter.class ) ),

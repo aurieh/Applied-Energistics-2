@@ -48,6 +48,9 @@ public class ContainerInterface extends ContainerUpgradeable implements IOptiona
     @GuiSync(9)
     public LockCraftingMode lockReason = LockCraftingMode.NONE;
 
+    @GuiSync(10)
+    public YesNo iConfigurationTermMode = YesNo.YES;
+
     public ContainerInterface(final InventoryPlayer ip, final IInterfaceHost te) {
         super(ip, te.getInterfaceDuality().getHost());
 
@@ -116,6 +119,7 @@ public class ContainerInterface extends ContainerUpgradeable implements IOptiona
         this.setBlockingMode((YesNo) cm.getSetting(Settings.BLOCK));
         this.setUnlockMode((LockCraftingMode) cm.getSetting(Settings.UNLOCK));
         this.setInterfaceTerminalMode((YesNo) cm.getSetting(Settings.INTERFACE_TERMINAL));
+        this.setInterfaceConfigurationTerminalMode((YesNo) cm.getSetting(Settings.INTERFACE_CONFIGURATION_TERMINAL));
     }
 
     public LockCraftingMode getUnlockMode() {return this.lMode;}
@@ -136,6 +140,14 @@ public class ContainerInterface extends ContainerUpgradeable implements IOptiona
 
     private void setInterfaceTerminalMode(final YesNo iTermMode) {
         this.iTermMode = iTermMode;
+    }
+
+    public YesNo getInterfaceConfigurationTerminalMode() {
+        return this.iConfigurationTermMode;
+    }
+
+    private void setInterfaceConfigurationTerminalMode(final YesNo iConfigurationTermMode) {
+        this.iConfigurationTermMode = iConfigurationTermMode;
     }
 
     public int getPatternUpgrades() {

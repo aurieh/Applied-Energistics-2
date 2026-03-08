@@ -106,7 +106,7 @@ public final class ContainerFluidInterfaceConfigurationTerminal extends AEBaseCo
                 for (final IGridNode gn : this.grid.getMachines(TileFluidInterface.class)) {
                     if (gn.isActive()) {
                         final IFluidInterfaceHost ih = (IFluidInterfaceHost) gn.getMachine();
-                        if (ih.getDualityFluidInterface().getConfigManager().getSetting(Settings.INTERFACE_TERMINAL) == YesNo.NO) {
+                        if (ih.getDualityFluidInterface().getConfigManager().getSetting(Settings.INTERFACE_CONFIGURATION_TERMINAL) == YesNo.NO) {
                             continue;
                         }
 
@@ -128,7 +128,7 @@ public final class ContainerFluidInterfaceConfigurationTerminal extends AEBaseCo
                 for (final IGridNode gn : this.grid.getMachines(PartFluidInterface.class)) {
                     if (gn.isActive()) {
                         final IFluidInterfaceHost ih = (IFluidInterfaceHost) gn.getMachine();
-                        if (ih.getDualityFluidInterface().getConfigManager().getSetting(Settings.INTERFACE_TERMINAL) == YesNo.NO) {
+                        if (ih.getDualityFluidInterface().getConfigManager().getSetting(Settings.INTERFACE_CONFIGURATION_TERMINAL) == YesNo.NO) {
                             continue;
                         }
 
@@ -223,7 +223,7 @@ public final class ContainerFluidInterfaceConfigurationTerminal extends AEBaseCo
                 for (final IGridNode gn : this.grid.getMachines(TileFluidInterface.class)) {
                     final IFluidInterfaceHost ih = (IFluidInterfaceHost) gn.getMachine();
                     final DualityFluidInterface dual = ih.getDualityFluidInterface();
-                    if (gn.isActive() && dual.getConfigManager().getSetting(Settings.INTERFACE_TERMINAL) == YesNo.YES) {
+                    if (gn.isActive() && dual.getConfigManager().getSetting(Settings.INTERFACE_CONFIGURATION_TERMINAL) == YesNo.YES) {
                         this.diList.put(ih, new FluidConfigTracker(dual, (AEFluidInventory) dual.getConfig(), dual.getTermName()));
                     }
                 }
@@ -231,7 +231,7 @@ public final class ContainerFluidInterfaceConfigurationTerminal extends AEBaseCo
                 for (final IGridNode gn : this.grid.getMachines(PartFluidInterface.class)) {
                     final IFluidInterfaceHost ih = (IFluidInterfaceHost) gn.getMachine();
                     final DualityFluidInterface dual = ih.getDualityFluidInterface();
-                    if (gn.isActive() && dual.getConfigManager().getSetting(Settings.INTERFACE_TERMINAL) == YesNo.YES) {
+                    if (gn.isActive() && dual.getConfigManager().getSetting(Settings.INTERFACE_CONFIGURATION_TERMINAL) == YesNo.YES) {
                         this.diList.put(ih, new FluidConfigTracker(dual, (AEFluidInventory) dual.getConfig(), dual.getTermName()));
                     }
                 }

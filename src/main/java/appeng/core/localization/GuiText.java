@@ -183,6 +183,7 @@ public enum GuiText {
     InvalidPattern,
 
     InterfaceTerminalHint,
+    InterfaceConfigurationTerminalHint,
     Range,
     TransparentFacades,
     TransparentFacadesHint,
